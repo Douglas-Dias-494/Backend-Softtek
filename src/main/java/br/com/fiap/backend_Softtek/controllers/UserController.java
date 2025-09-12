@@ -3,6 +3,8 @@ package br.com.fiap.backend_Softtek.controllers;
 
 import br.com.fiap.backend_Softtek.Models.UserModel;
 import br.com.fiap.backend_Softtek.repositories.UserRepository;
+import br.com.fiap.backend_Softtek.security.AuthResponse;
+import br.com.fiap.backend_Softtek.service.UserService;
 import br.com.fiap.backend_Softtek.utils.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,9 @@ public class UserController {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping// retorno geral de todos os usuários
     public List<UserModel> getAllUsers() {
         return userRepository.findAll();
@@ -38,14 +43,15 @@ public class UserController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/login-auth") // endpoint que cadastra o nome digitado pelo usuário
-    public String loginUser(@RequestBody Map<String, String> payload) {
+    @PostMapping("/users") // endpoint que cadastra o nome digitado pelo usuário
+    public AuthResponse loginUser(@RequestBody Map<String, String> payload) {
         String username = payload.get("username");
 
-        // Verifique se o usuário existe, se não, crie um novo registro
+        UserModel user = userService.findOrCreateUser(username);
 
-        return jwtTokenProvider.generateToken(username);
+        String jwt = jwtTokenProvider.generateToken(user.getId());
+
+        return new AuthResponse(jwt, user.getUsername());
     }
-
 
 }

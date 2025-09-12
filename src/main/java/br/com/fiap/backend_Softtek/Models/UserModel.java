@@ -7,12 +7,18 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@NoArgsConstructor
-@AllArgsConstructor
+import java.util.UUID;
+
+
 @Data
-@Document(value = "users")
+@Document(collection = "users")
 public class UserModel {
     @Id
     private String id;
     private String username;
+
+    public UserModel(String username) {
+        this.id = UUID.randomUUID().toString();
+        this.username = username;
+    }
 }
