@@ -32,26 +32,24 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping("/{id}") // retorno do usuário escolhido [ talvez não tenha necessidade de ter esse endpoint... ]
-    public ResponseEntity<UserModel> getUserById(@PathVariable String id) {
-        return userRepository.findById(id)
-                .map(user -> {
-                    user.setUsername(user.getUsername());
-                    UserModel updatedUser = userRepository.save(user);
-                    return ResponseEntity.ok(updatedUser);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
+//    @GetMapping("/{id}") // retorno do usuário escolhido [ talvez não tenha necessidade de ter esse endpoint... ]
+//    public ResponseEntity<UserModel> getUserById(@PathVariable String id) {
+//        return userRepository.findById(id)
+//                .map(user -> {
+//                    user.setUsername(user.getUsername());
+//                    UserModel updatedUser = userRepository.save(user);
+//                    return ResponseEntity.ok(updatedUser);
+//                })
+//                .orElse(ResponseEntity.notFound().build());
+//    }
 
     @PostMapping("/users") // endpoint que cadastra o nome digitado pelo usuário
-    public AuthResponse loginUser(@RequestBody Map<String, String> payload) {
-        String username = payload.get("username");
+    public AuthResponse authenticateUser() {
+        UserModel userModel = userService.createAnonymousUser();
 
-        UserModel user = userService.findOrCreateUser(username);
+        String jwt = jwtTokenProvider.generateToken(userModel.getId());
 
-        String jwt = jwtTokenProvider.generateToken(user.getId());
-
-        return new AuthResponse(jwt, user.getUsername());
+        return new AuthResponse(jwt, userModel.getId());
     }
 
 }

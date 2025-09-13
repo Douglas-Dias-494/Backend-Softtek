@@ -15,10 +15,8 @@ import java.util.UUID;
 public class UserModel {
     @Id
     private String id;
-    private String username;
 
-    public UserModel(String username) {
-        this.id = UUID.randomUUID().toString();
-        this.username = username;
+    public UserModel(){
+
     }
 }
