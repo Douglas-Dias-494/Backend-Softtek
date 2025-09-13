@@ -32,6 +32,7 @@ public class SecurityConfig {
                         .requestMatchers("/softtek-users/users").permitAll() // Permite acesso público a todos os endpoints
                         .requestMatchers("/softtek-users/**").authenticated()
                         .requestMatchers("/softtek-users").authenticated()
+                        .requestMatchers("/moods").authenticated()
                         .anyRequest().authenticated() // Exige autenticação para todos os outros endpoints
                 );
 
