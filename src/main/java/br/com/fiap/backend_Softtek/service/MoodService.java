@@ -28,4 +28,8 @@ public class MoodService {
         }
     }
 
+    public Optional<MoodModel> findByUserIdAndDate(String userId, LocalDate date) {
+        return moodRepository.findByUserIdAndDate(userId, date);
+    }
+
 }
