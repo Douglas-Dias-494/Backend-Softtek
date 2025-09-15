@@ -33,6 +33,8 @@ public class SecurityConfig {
                         .requestMatchers("/softtek-users/**").authenticated()
                         .requestMatchers("/softtek-users").authenticated()
                         .requestMatchers("/moods").authenticated()
+                        .requestMatchers("/tasks").authenticated()
+                        .requestMatchers("/progress").authenticated()
                         .anyRequest().authenticated() // Exige autenticação para todos os outros endpoints
                 );
 
