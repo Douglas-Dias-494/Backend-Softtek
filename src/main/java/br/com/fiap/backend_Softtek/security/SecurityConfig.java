@@ -37,6 +37,7 @@ public class SecurityConfig {
                         .requestMatchers("/progress/**").authenticated()
                         .requestMatchers("/progress").authenticated()
                         .requestMatchers("/questionnaries").authenticated()
+                        .requestMatchers("/feedback").authenticated()
                         .anyRequest().authenticated() // Exige autenticação para todos os outros endpoints
                 );
 
