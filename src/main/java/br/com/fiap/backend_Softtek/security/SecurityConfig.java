@@ -36,6 +36,7 @@ public class SecurityConfig {
                         .requestMatchers("/tasks/**").authenticated()
                         .requestMatchers("/progress/**").authenticated()
                         .requestMatchers("/progress").authenticated()
+                        .requestMatchers("/questionnaries").authenticated()
                         .anyRequest().authenticated() // Exige autenticação para todos os outros endpoints
                 );
 
