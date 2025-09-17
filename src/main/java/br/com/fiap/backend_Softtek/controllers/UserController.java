@@ -44,11 +44,13 @@ public class UserController {
 //    }
 
     @PostMapping("/users") // endpoint que cadastra o nome digitado pelo usuário
-    public AuthResponse authenticateUser() {
-        UserModel userModel = userService.createAnonymousUser();
+    public AuthResponse authenticateUser(@RequestBody Map<String, String> payload) {
+        String username = payload.get("username");
+
+        UserModel userModel = userService.findOrCreateUser(username);
 
         String jwt = jwtTokenProvider.generateToken(userModel.getId());
 
-        return new AuthResponse(jwt, userModel.getId());
+        return new AuthResponse(jwt, userModel.getId(), userModel.getUsername());
     }
 }

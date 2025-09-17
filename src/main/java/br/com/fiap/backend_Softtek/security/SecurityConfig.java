@@ -33,6 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/softtek-users/**").authenticated()
                         .requestMatchers("/softtek-users").authenticated()
                         .requestMatchers("/moods").authenticated()
+                        .requestMatchers("/moods/**").authenticated()
                         .requestMatchers("/tasks/**").authenticated()
                         .requestMatchers("/progress/**").authenticated()
                         .requestMatchers("/progress").authenticated()

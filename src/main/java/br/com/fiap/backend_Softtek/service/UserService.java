@@ -17,14 +17,21 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    public UserModel createAnonymousUser() {
-        UserModel user = new UserModel();
-        return userRepository.save(user);
+    public UserModel findOrCreateUser(String username) {
+        return userRepository.findByUsername(username)
+                .orElseGet(() -> {
+                    //Se o user não existir, cria um novo
+                    UserModel user = new UserModel();
+                    user.setUsername(username);
+                    return userRepository.save(user);
+                });
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        UserModel user =userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
+        return new User(user.getId(), "", Collections.emptyList());
     }
 
     public UserDetails loadUserById(String id) {

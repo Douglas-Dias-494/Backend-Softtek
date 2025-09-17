@@ -16,6 +16,8 @@ public class UserModel {
     @Id
     private String id;
 
+    private String username; // apelido para usuário
+
     public UserModel(){
 
     }
