@@ -4,12 +4,14 @@ import lombok.Data;
 
 @Data
 public class MonthlyMoodResponse {
-    private String date;
+    private String month;
     private String mood;
+    private double percentage;
 
-    // Construtor, Getters e Setters
-    public MonthlyMoodResponse(String date, String mood) {
-        this.date = date;
+    // Construtor
+    public MonthlyMoodResponse(String month, String mood, double percentage) {
+        this.month = month;
         this.mood = mood;
+        this.percentage = percentage;
     }
 }
