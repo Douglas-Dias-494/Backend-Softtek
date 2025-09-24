@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends MongoRepository<UserModel, String> {
-    Optional<UserModel> findByUsername(String username);
+    // Adicione esta nova linha para buscar um usuário pelo nickname
+    Optional<UserModel> findByNickname(String nickname);
 
 }

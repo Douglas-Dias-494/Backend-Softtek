@@ -12,6 +12,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -29,9 +31,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // Desabilita a proteção CSRF
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Define que a sessão não será gerenciada pelo Spring Security
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/softtek-users/users").permitAll() // Permite acesso público a todos os endpoints
-                        .requestMatchers("/softtek-users/**").authenticated()
-                        .requestMatchers("/softtek-users").authenticated()
+                        .requestMatchers("/softtek-users/**").permitAll()
+                        .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/moods").authenticated()
                         .requestMatchers("/moods/**").authenticated()
                         .requestMatchers("/tasks/**").authenticated()

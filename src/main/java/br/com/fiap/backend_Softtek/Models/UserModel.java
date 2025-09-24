@@ -15,10 +15,15 @@ import java.util.UUID;
 public class UserModel {
     @Id
     private String id;
-
-    private String username; // apelido para usuário
+    private String nickname;
+    private String password;
 
     public UserModel(){
 
+    }
+
+    public UserModel(String nickname, String password) {
+        this.nickname = nickname;
+        this.password = password;
     }
 }
